@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StratCue — 紙上交易終端</title>
+    <meta
+      name="description"
+      content="StratCue 是給單一操作者的交易終端。AI 看盤、畫線、提出進出場；訂單先經風控，再進模擬帳戶。實盤預設關閉。"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=4" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="mark" href="#top">
+        <span class="mark-a" aria-hidden="true">S</span>
+        <span>
+          <strong>StratCue</strong>
+          <small data-i18n="mark.sub">終端 · 紙上</small>
+        </span>
+      </a>
+      <div class="nav-end">
+        <nav>
+          <a href="#flow" data-i18n="nav.flow">怎麼走</a>
+          <a href="#desk" data-i18n="nav.desk">終端裡有什麼</a>
+          <a href="#boundary" data-i18n="nav.boundary">邊界</a>
+        </nav>
+        <select id="lang" aria-label="語言">
+          <option value="zh-Hant">繁體中文</option>
+          <option value="zh-Hans">简体中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">本機運行 · 模擬帳戶 · 實盤鎖定</p>
+          <h1>
+            <span data-i18n="hero.title1">AI 負責看盤和建議。</span><br />
+            <span data-i18n="hero.title2">成交只進紙上帳戶。</span>
+          </h1>
+          <p class="lede" data-i18n="hero.lede">
+            StratCue 是給單一操作者的交易終端。模型可以讀 K 線、在圖上畫線、提出做多或做空。訂單先過風控，再寫進模擬持倉。實盤那一道預設是關的。
+          </p>
+          <div class="hero-actions">
+            <a class="btn solid" href="#flow" data-i18n="hero.ctaFlow">看這條鏈怎麼走</a>
+            <a class="btn ghost" href="#boundary" data-i18n="hero.ctaBoundary">它不做什麼</a>
+          </div>
+        </div>
+
+        <figure class="desk term" data-screen="market" data-tool="hline" data-i18n-aria="desk.aria" aria-label="終端示意">
+          <aside class="term-side">
+            <div class="term-brand">
+              <span class="mark-a" aria-hidden="true">S</span>
+              <span><b>StratCue</b><small>TERMINAL · PAPER</small></span>
+            </div>
+            <p class="side-label" data-i18n="side.trade">交易</p>
+            <nav class="term-nav">
+              <button type="button" data-screen="market" aria-pressed="true"><span data-i18n="nav.market">行情</span><kbd>2</kbd></button>
+              <button type="button" data-screen="chart" aria-pressed="false"><span data-i18n="nav.chart">圖表</span><kbd>3</kbd></button>
+              <button type="button" data-screen="positions" aria-pressed="false"><span data-i18n="nav.positions">持倉</span></button>
+              <button type="button" data-screen="accounts" aria-pressed="false"><span data-i18n="nav.accounts">帳戶</span></button>
+              <button type="button" data-screen="alerts" aria-pressed="false"><span data-i18n="nav.alerts">警示</span></button>
+            </nav>
+            <p class="side-label" data-i18n="side.research">研究</p>
+            <nav class="term-nav">
+              <button type="button" data-screen="agent" aria-pressed="false"><span data-i18n="nav.agent">AI Agent</span></button>
+              <button type="button" data-screen="backtest" aria-pressed="false"><span data-i18n="nav.backtest">回測</span></button>
+              <button type="button" data-screen="strategy" aria-pressed="false"><span data-i18n="nav.strategy">策略</span><kbd>5</kbd></button>
+              <button type="button" data-screen="journal" aria-pressed="false"><span data-i18n="nav.journal">日誌</span></button>
+              <button type="button" data-screen="scoreboard" aria-pressed="false"><span data-i18n="nav.scoreboard">計分板</span></button>
+              <button type="button" data-screen="heatmap" aria-pressed="false"><span data-i18n="nav.heatmap">熱力圖</span></button>
+            </nav>
+            <p class="side-label" data-i18n="side.workspace">工作區</p>
+            <nav class="term-nav">
+              <button type="button" data-screen="workspace" aria-pressed="false"><span data-i18n="nav.workspace">總覽</span></button>
+            </nav>
+          </aside>
+          <div class="term-main">
+            <header class="term-top">
+              <div class="crumb"><b data-i18n="nav.market">行情</b><span><span class="sym">BTCUSDT</span> · <span class="iv-label">1h</span></span></div>
+              <span class="blocked" data-i18n="top.blocked">行情被擋</span>
+              <span class="account">Binance paper · USDT · paper</span>
+              <span class="equity"><b>21,839.83 USD</b><small>+1,830.83 · +9.15%</small></span>
+            </header>
+            <div class="screen" data-screen="market">
+              <section class="chart-card">
+                <div class="chart-head">
+                  <b class="sym">BTCUSDT</b>
+                  <span class="ivs">
+                    <button type="button" class="iv" aria-pressed="false">1m</button>
+                    <button type="button" class="iv" aria-pressed="false">5m</button>
+                    <button type="button" class="iv" aria-pressed="false">15m</button>
+                    <button type="button" class="iv" aria-pressed="true">1H</button>
+                    <button type="button" class="iv" aria-pressed="false">4H</button>
+                    <button type="button" class="iv" aria-pressed="false">1D</button>
+                  </span>
+                  <span class="agent-chip" data-i18n="chart.agent">Agent</span>
+                </div>
+                <div class="legend">
+                  <b class="sym">BTCUSDT</b><span class="iv-label">1H</span>
+                  <button type="button" class="ema5" data-ema="5" aria-pressed="true">EMA 5</button>
+                  <button type="button" class="ema20" data-ema="20" aria-pressed="true">EMA 20</button>
+                  <span class="tag" data-i18n="chart.region">地區封鎖</span>
+                </div>
+                <div class="plot">
+                  <div class="rail" role="toolbar">
+                    <button type="button" class="tool" data-tool="crosshair" data-i18n-title="tool.crosshair" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 4l7.5 16 1.6-6.4L20 12z"/></svg></button>
+                    <button type="button" class="tool" data-tool="hline" data-i18n-title="tool.hline" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M4 12h16"/></svg></button>
+                    <button type="button" class="tool" data-tool="trend" data-i18n-title="tool.trend" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 19 19 5"/></svg></button>
+                    <button type="button" class="tool" data-tool="rect" data-i18n-title="tool.rect" aria-pressed="false"><svg viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="12" rx="1"/></svg></button>
+                    <button type="button" class="tool" data-tool="position" data-i18n-title="tool.position" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M6 4h12v7H6zM6 13h12v7H6z"/></svg></button>
+                  </div>
+                  <svg viewBox="0 0 640 250" data-i18n-aria="chart.aria" aria-label="示意 K 線">
+                    <g class="grid"><line x1="0" y1="30" x2="640" y2="30"/><line x1="0" y1="80" x2="640" y2="80"/><line x1="0" y1="130" x2="640" y2="130"/><line x1="0" y1="180" x2="640" y2="180"/></g>
+                    <g class="candles">
+                      <line x1="28" y1="18" x2="28" y2="46"/><rect x="23" y="22" width="10" height="18" class="up"/>
+                      <line x1="58" y1="24" x2="58" y2="58"/><rect x="53" y="30" width="10" height="20"/>
+                      <line x1="88" y1="36" x2="88" y2="70"/><rect x="83" y="42" width="10" height="20" class="up"/>
+                      <line x1="118" y1="48" x2="118" y2="86"/><rect x="113" y="54" width="10" height="24"/>
+                      <line x1="148" y1="60" x2="148" y2="98"/><rect x="143" y="66" width="10" height="22"/>
+                      <line x1="178" y1="70" x2="178" y2="108"/><rect x="173" y="78" width="10" height="22" class="up"/>
+                      <line x1="208" y1="84" x2="208" y2="122"/><rect x="203" y="90" width="10" height="24"/>
+                      <line x1="238" y1="96" x2="238" y2="132"/><rect x="233" y="102" width="10" height="20"/>
+                      <line x1="268" y1="108" x2="268" y2="146"/><rect x="263" y="116" width="10" height="22" class="up"/>
+                      <line x1="298" y1="118" x2="298" y2="158"/><rect x="293" y="126" width="10" height="24"/>
+                      <line x1="328" y1="128" x2="328" y2="166"/><rect x="323" y="136" width="10" height="22"/>
+                      <line x1="358" y1="136" x2="358" y2="172"/><rect x="353" y="142" width="10" height="20" class="up"/>
+                      <line x1="388" y1="142" x2="388" y2="180"/><rect x="383" y="148" width="10" height="24"/>
+                      <line x1="418" y1="150" x2="418" y2="188"/><rect x="413" y="156" width="10" height="22"/>
+                      <line x1="448" y1="146" x2="448" y2="184"/><rect x="443" y="152" width="10" height="20" class="up"/>
+                      <line x1="478" y1="158" x2="478" y2="196"/><rect x="473" y="164" width="10" height="24"/>
+                      <line x1="508" y1="166" x2="508" y2="204"/><rect x="503" y="172" width="10" height="22"/>
+                      <line x1="538" y1="172" x2="538" y2="208"/><rect x="533" y="178" width="10" height="20" class="up"/>
+                      <line x1="568" y1="160" x2="568" y2="198"/><rect x="563" y="166" width="10" height="22"/>
+                    </g>
+                    <g class="vols">
+                      <rect x="23" y="228" width="10" height="16" class="up"/><rect x="53" y="232" width="10" height="12"/>
+                      <rect x="83" y="226" width="10" height="18" class="up"/><rect x="113" y="220" width="10" height="24"/>
+                      <rect x="143" y="224" width="10" height="20"/><rect x="173" y="230" width="10" height="14" class="up"/>
+                      <rect x="203" y="218" width="10" height="26"/><rect x="233" y="222" width="10" height="22"/>
+                      <rect x="263" y="228" width="10" height="16" class="up"/><rect x="293" y="214" width="10" height="30"/>
+                      <rect x="323" y="220" width="10" height="24"/><rect x="353" y="226" width="10" height="18" class="up"/>
+                      <rect x="383" y="216" width="10" height="28"/><rect x="413" y="222" width="10" height="22"/>
+                      <rect x="443" y="228" width="10" height="16" class="up"/><rect x="473" y="218" width="10" height="26"/>
+                      <rect x="503" y="224" width="10" height="20"/><rect x="533" y="230" width="10" height="14" class="up"/>
+                      <rect x="563" y="220" width="10" height="24"/>
+                    </g>
+                    <path data-ema-line="5" d="M20 40 C120 70, 220 110, 340 145 S520 175, 620 168" class="ema"/>
+                    <path data-ema-line="20" d="M20 28 C140 55, 260 95, 400 130 S560 160, 620 150" class="ema20"/>
+                    <g class="overlay" data-for="hline"><line x1="0" y1="96" x2="640" y2="96" class="hline"/></g>
+                    <g class="overlay" data-for="trend"><line x1="40" y1="40" x2="600" y2="190" class="trend"/></g>
+                    <g class="overlay" data-for="crosshair"><line x1="0" y1="120" x2="640" y2="120" class="cross"/><line x1="360" y1="0" x2="360" y2="220" class="cross"/></g>
+                    <g class="overlay" data-for="rect"><rect x="220" y="70" width="180" height="80" class="rect"/></g>
+                    <g class="overlay" data-for="position"><rect x="420" y="120" width="140" height="36" class="pos-up"/><rect x="420" y="156" width="140" height="36" class="pos-down"/></g>
+                    <rect x="548" y="158" width="78" height="16" rx="3" class="last-bg"/>
+                    <text x="586" y="170" text-anchor="middle" class="last">59328.20</text>
+                  </svg>
+                  <ol class="scale"><li>70000</li><li>66000</li><li>62000</li><li>58000</li><li>55000</li></ol>
+                </div>
+              </section>
+              <aside class="book">
+                <div class="pane-h"><span data-i18n="book.title">訂單簿</span><span class="sym">BTCUSDT</span></div>
+                <div class="seg">
+                  <button type="button" data-book="book" data-i18n="book.title" aria-pressed="true">訂單簿</button>
+                  <button type="button" data-book="trades" data-i18n="book.trades" aria-pressed="false">成交</button>
+                </div>
+                <p data-i18n="book.blocked">此地區無法連上交易所公開行情（HTTP 451）。報價維持空白，不會用樣本或合成價填補。</p>
+              </aside>
+              <section class="watchlist">
+                <div class="pane-h"><span data-i18n="watch.title">觀察清單</span></div>
+                <div class="wl-tabs">
+                  <span data-i18n="watch.title">自選</span>
+                  <span data-i18n="watch.gainers">前十漲幅</span>
+                  <span data-i18n="watch.losers">前十跌幅</span>
+                  <span data-i18n="watch.volume">前十成交量</span>
+                </div>
+                <button type="button" class="wl-row" data-symbol="BTCUSDT" aria-pressed="true"><b>BTCUSDT</b><span class="down">59233.90</span><span class="down">-6.09%</span></button>
+                <button type="button" class="wl-row" data-symbol="ETHUSDT" aria-pressed="false"><b>ETHUSDT</b><span class="up">1642.84</span><span class="down">-7.64%</span></button>
+                <button type="button" class="wl-row" data-symbol="SOLUSDT" aria-pressed="false"><b>SOLUSDT</b><span class="down">35.12</span><span class="down">-31.35%</span></button>
+              </section>
+              <section class="aichat">
+                <div class="pane-h"><span data-i18n="chat.title">AI 對話</span></div>
+                <div class="chat-meta"><span class="sym">BTCUSDT</span> · <span class="iv-label">1h</span> · <span data-i18n="chat.live">行情即時</span></div>
+                <p class="chat-line" data-i18n="chat.line">模型可以讀這張圖、畫線，進出場先停在待批准。這頁不能下單。</p>
+                <div class="chat-input" data-i18n="chat.placeholder">輸入…</div>
+              </section>
+            </div>
+            <div class="screen plain" data-screen="chart">
+              <p data-i18n="feat.chart.p">K 線、成交量、EMA，左側畫線。AI 畫的線和人手畫的線走同一張圖。</p>
+            </div>
+            <div class="screen plain" data-screen="positions">
+              <p><span data-i18n="pos.equity">模擬權益</span> <b>21,839.83 USD</b></p>
+              <p><span data-i18n="pos.open">未平倉</span> <b data-i18n="pos.none">沒有</b></p>
+              <p><span data-i18n="pos.halt">日虧熔斷</span> <b data-i18n="pos.clear">未觸發</b></p>
+              <p data-i18n="pos.note">這頁的批准不會寫進終端，也不會送出訂單。</p>
+            </div>
+            <div class="screen plain" data-screen="accounts"><p data-i18n="pane.accounts">紙上帳戶在本機。交易所金鑰不會交給模型。</p></div>
+            <div class="screen plain" data-screen="alerts"><p data-i18n="pane.alerts">警示留在本機。行情中斷時不會用假價補上。</p></div>
+            <div class="screen plain" data-screen="agent"><p data-i18n="chat.line">模型可以讀這張圖、畫線，進出場先停在待批准。這頁不能下單。</p></div>
+            <div class="screen plain" data-screen="backtest"><p data-i18n="pane.backtest">用已存的 K 線重播。不過關就留在構想。</p></div>
+            <div class="screen plain" data-screen="strategy"><p data-i18n="pane.strategy">策略先是構想。計分板看樣本外和模擬結果。</p></div>
+            <div class="screen plain" data-screen="journal"><p data-i18n="pane.journal">對話、平倉和教訓寫在本機資料庫。</p></div>
+            <div class="screen plain" data-screen="scoreboard"><p data-i18n="pane.scoreboard">計分板只看已有結果，不把構想算成績效。</p></div>
+            <div class="screen plain" data-screen="heatmap"><p data-i18n="pane.heatmap">熱力圖用公開行情的漲跌上色。來源被擋時這一格是空的。</p></div>
+            <div class="screen plain" data-screen="workspace"><p data-i18n="pane.workspace">工作區把終端裡正在看的畫面放在一起。</p></div>
+          </div>
+        </figure>
+      </section>
+
+      <section id="flow" class="band">
+        <div class="band-h">
+          <h2 data-i18n="flow.h">一筆單要經過的地方</h2>
+          <p data-i18n="flow.p">模型沒有直接改帳戶的路。中間是風控，最後才是模擬成交。</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <h3 data-i18n="flow.1h">看盤</h3>
+            <p data-i18n="flow.1p">K 線、均線、畫線在同一張圖。公開行情按交易所順序接，某個來源被擋就換下一個。</p>
+          </li>
+          <li>
+            <span>02</span>
+            <h3 data-i18n="flow.2h">建議</h3>
+            <p data-i18n="flow.2p">對話裡的模型用同一套工具讀行情、查紀錄、把價位畫回圖上。進出場先變成一張待批准的建議。</p>
+          </li>
+          <li>
+            <span>03</span>
+            <h3 data-i18n="flow.3h">模擬成交</h3>
+            <p data-i18n="flow.3p">人點批准，風控看過倉位、比例和止損，才記入紙上帳戶。平倉、盈虧和教訓留在本機。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="desk" class="band">
+        <div class="band-h">
+          <h2 data-i18n="desk.h">終端裡已經在用的</h2>
+          <p data-i18n="desk.p">不是功能清單的廣告。這些是現在這套終端裡真的有的畫面。</p>
+        </div>
+        <div class="grid">
+          <article>
+            <h3 data-i18n="feat.chart.h">圖表</h3>
+            <p data-i18n="feat.chart.p">K 線、成交量、EMA，左側畫線。AI 畫的線和人手畫的線走同一張圖。</p>
+          </article>
+          <article>
+            <h3 data-i18n="feat.chat.h">對話</h3>
+            <p data-i18n="feat.chat.p">多個模型接同一組工具。工具可以單獨關掉，關掉之後模型看不到，呼叫也等於沒有這個工具。</p>
+          </article>
+          <article>
+            <h3 data-i18n="feat.approve.h">批准</h3>
+            <p data-i18n="feat.approve.p">建議價偏離現價、行情過期，就不能照舊單成交。要重看，再送一次。</p>
+          </article>
+          <article>
+            <h3 data-i18n="feat.risk.h">持倉與風控</h3>
+            <p data-i18n="feat.risk.p">模擬權益、未平倉、單筆上限、日虧熔斷。熔斷要手動解除。</p>
+          </article>
+          <article>
+            <h3 data-i18n="feat.backtest.h">回測與計分板</h3>
+            <p data-i18n="feat.backtest.p">用已存的 K 線重播策略。計分板看樣本外和模擬結果，不過關就留在構想。</p>
+          </article>
+          <article>
+            <h3 data-i18n="feat.research.h">研究紀錄</h3>
+            <p data-i18n="feat.research.p">對話、平倉和教訓寫在本機資料庫。問舊績效要先查紀錄，不靠模型現編。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="boundary" class="boundary">
+        <div>
+          <h2 data-i18n="boundary.h">這頁不接單，終端也不接實盤。</h2>
+          <p data-i18n="boundary.p">
+            StratCue 不是券商，也不代客下單。交易所金鑰不會交給模型。實盤入口保持鎖定。這個網站只說明產品；看盤和下單的終端在操作者自己的電腦上跑。
+          </p>
+        </div>
+        <ul>
+          <li data-i18n="boundary.1">紙上帳戶，不是真實資金</li>
+          <li data-i18n="boundary.2">建議可拒絕，批准才成交</li>
+          <li data-i18n="boundary.3">行情是公開資料，會有地區限制</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <span class="mark-a" aria-hidden="true">S</span>
+      <span>StratCue</span>
+      <span class="dim" data-i18n="footer.tag">紙上交易終端</span>
+    </footer>
+    <script src="/i18n.js?v=4"></script>
+    <script src="/desk.js?v=4"></script>
+  </body>
+</html>
