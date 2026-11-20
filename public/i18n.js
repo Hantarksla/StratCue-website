@@ -17,8 +17,13 @@
       "hero.title2": "成交只進紙上帳戶。",
       "hero.lede":
         "StratCue 是給單一操作者的交易終端。模型可以讀 K 線、在圖上畫線、提出做多或做空。訂單先過風控，再寫進模擬持倉。實盤那一道預設是關的。",
-      "hero.ctaFlow": "看這條鏈怎麼走",
+      "hero.ctaFlow": "看這條線怎麼走",
       "hero.ctaBoundary": "它不做什麼",
+      "waitlist.ph": "電郵地址",
+      "waitlist.cta": "加入等候名單",
+      "waitlist.ok": "收到。你已在等候名單上，開放時會通知你。",
+      "waitlist.err": "這個電郵唔啱，檢查一下再試。",
+      "waitlist.mail": "等候名單未接通，可直接電郵 support@stratcue.com。",
       "desk.aria": "終端示意：行情、圖表、待批准建議",
       "desk.market": "行情",
       "desk.hline": "水平線",
@@ -61,7 +66,7 @@
       "footer.tag": "紙上交易終端",
       "desk.pick": "點左側工具，圖上換成那個畫法。",
       "stage.play": "點一下，自己點選裡面的畫面",
-      "stage.full": "全屏觀看",
+      "stage.full": "全屏試用",
       "stage.exit": "離開全屏",
       "screen.chart": "圖表",
       "screen.chat": "對話",
@@ -145,8 +150,13 @@
       "hero.title2": "成交只进纸上账户。",
       "hero.lede":
         "StratCue 是给单一操作者的交易终端。模型可以读 K 线、在图上画线、提出做多或做空。订单先过风控，再写进模拟持仓。实盘那一道默认是关的。",
-      "hero.ctaFlow": "看这条链怎么走",
+      "hero.ctaFlow": "看这条线怎么走",
       "hero.ctaBoundary": "它不做什么",
+      "waitlist.ph": "邮箱地址",
+      "waitlist.cta": "加入等候名单",
+      "waitlist.ok": "收到。你已在等候名单上，开放时会通知你。",
+      "waitlist.err": "这个邮箱不对，检查一下再试。",
+      "waitlist.mail": "等候名单未接通，可直接邮件 support@stratcue.com。",
       "desk.aria": "终端示意：行情、图表、待批准建议",
       "desk.market": "行情",
       "desk.hline": "水平线",
@@ -189,7 +199,7 @@
       "footer.tag": "纸上交易终端",
       "desk.pick": "点左侧工具，图上换成那个画法。",
       "stage.play": "点一下，自己点选里面的画面",
-      "stage.full": "全屏观看",
+      "stage.full": "全屏试用",
       "stage.exit": "离开全屏",
       "screen.chart": "图表",
       "screen.chat": "对话",
@@ -275,6 +285,11 @@
         "StratCue is a trading terminal for one operator. The model can read candles, draw on the chart, and propose long or short. An order passes the risk gate before it is written into the paper book. The live-trading gate stays off.",
       "hero.ctaFlow": "See the path",
       "hero.ctaBoundary": "What it does not do",
+      "waitlist.ph": "Email address",
+      "waitlist.cta": "Join the waitlist",
+      "waitlist.ok": "You are on the waitlist. We will email you when it opens.",
+      "waitlist.err": "That email does not look right. Check it and try again.",
+      "waitlist.mail": "The waitlist is not connected yet. Email support@stratcue.com instead.",
       "desk.aria": "Terminal sketch: market, chart, and a proposal waiting for approval",
       "desk.market": "Market",
       "desk.hline": "hline",
@@ -324,7 +339,7 @@
       "footer.tag": "Paper trading terminal",
       "desk.pick": "Pick a tool on the left. The chart switches to that drawing.",
       "stage.play": "Click, then choose a screen inside",
-      "stage.full": "Watch fullscreen",
+      "stage.full": "Try fullscreen",
       "stage.exit": "Leave fullscreen",
       "screen.chart": "Chart",
       "screen.chat": "Chat",
@@ -434,6 +449,10 @@
         node.setAttribute("title", pack[key]);
         node.setAttribute("aria-label", pack[key]);
       }
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach((node) => {
+      const key = node.getAttribute("data-i18n-ph");
+      if (key && pack[key] != null && node instanceof HTMLInputElement) node.placeholder = pack[key];
     });
     const select = document.querySelector("#lang");
     if (select instanceof HTMLSelectElement) {

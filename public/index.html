@@ -9,7 +9,7 @@
       content="StratCue 是給單一操作者的交易終端。AI 看盤、畫線、提出進出場；訂單先經風控，再進模擬帳戶。實盤預設關閉。"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=4" />
+    <link rel="stylesheet" href="/styles.css?v=5" />
   </head>
   <body>
     <header class="nav">
@@ -49,6 +49,11 @@
             <a class="btn solid" href="#flow" data-i18n="hero.ctaFlow">看這條鏈怎麼走</a>
             <a class="btn ghost" href="#boundary" data-i18n="hero.ctaBoundary">它不做什麼</a>
           </div>
+          <form class="waitlist" id="waitlistForm" novalidate>
+            <input type="email" id="waitlistEmail" data-i18n-ph="waitlist.ph" placeholder="電郵地址" autocomplete="email" required />
+            <button class="btn solid" type="submit" data-i18n="waitlist.cta">加入等候名單</button>
+            <p class="waitlist-msg" id="waitlistMsg" role="status"></p>
+          </form>
         </div>
 
         <figure class="desk term" data-screen="market" data-tool="hline" data-i18n-aria="desk.aria" aria-label="終端示意">
@@ -151,7 +156,7 @@
                     </g>
                     <path data-ema-line="5" d="M20 40 C120 70, 220 110, 340 145 S520 175, 620 168" class="ema"/>
                     <path data-ema-line="20" d="M20 28 C140 55, 260 95, 400 130 S560 160, 620 150" class="ema20"/>
-                    <g class="overlay" data-for="hline"><line x1="0" y1="96" x2="640" y2="96" class="hline"/></g>
+                    <g class="overlay" data-for="hline"><line x1="0" y1="96" x2="640" y2="96" class="hline"/><rect x="576" y="88" width="64" height="16" rx="3" class="hline-bg"/><text x="608" y="100" text-anchor="middle" class="hline-label" data-i18n="desk.hline">水平線</text></g>
                     <g class="overlay" data-for="trend"><line x1="40" y1="40" x2="600" y2="190" class="trend"/></g>
                     <g class="overlay" data-for="crosshair"><line x1="0" y1="120" x2="640" y2="120" class="cross"/><line x1="360" y1="0" x2="360" y2="220" class="cross"/></g>
                     <g class="overlay" data-for="rect"><rect x="220" y="70" width="180" height="80" class="rect"/></g>
@@ -160,6 +165,10 @@
                     <text x="586" y="170" text-anchor="middle" class="last">59328.20</text>
                   </svg>
                   <ol class="scale"><li>70000</li><li>66000</li><li>62000</li><li>58000</li><li>55000</li></ol>
+                </div>
+                <div class="chart-foot">
+                  <span data-i18n="desk.pick">點左側工具，圖上換成那個畫法。</span>
+                  <span data-i18n="chart.foot">來源依序嘗試公開行情 · 不下單</span>
                 </div>
               </section>
               <aside class="book">
@@ -209,6 +218,10 @@
             <div class="screen plain" data-screen="workspace"><p data-i18n="pane.workspace">工作區把終端裡正在看的畫面放在一起。</p></div>
           </div>
         </figure>
+        <button type="button" class="watch" id="watchBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+          <span data-i18n="stage.full">全屏試用</span>
+        </button>
       </section>
 
       <section id="flow" class="band">
@@ -288,7 +301,65 @@
       <span>StratCue</span>
       <span class="dim" data-i18n="footer.tag">紙上交易終端</span>
     </footer>
-    <script src="/i18n.js?v=4"></script>
+    <script src="/i18n.js?v=5"></script>
     <script src="/desk.js?v=4"></script>
+    <script>
+      // Waitlist + fullscreen. WAITLIST_ENDPOINT: paste your ConvertKit form
+      // action URL here (e.g. https://app.convertkit.com/forms/XXXX/subscriptions).
+      // Leave it empty until then: the form shows the email fallback instead.
+      const WAITLIST_ENDPOINT = "";
+      (() => {
+        const form = document.getElementById("waitlistForm");
+        const input = document.getElementById("waitlistEmail");
+        const msg = document.getElementById("waitlistMsg");
+        function setMsg(key, cls) {
+          if (!msg) return;
+          msg.setAttribute("data-i18n", key);
+          msg.className = "waitlist-msg" + (cls ? " " + cls : "");
+          window.AQ_LANDING?.apply();
+        }
+        form?.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const email = (input?.value || "").trim();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setMsg("waitlist.err", "err");
+            return;
+          }
+          if (!WAITLIST_ENDPOINT) {
+            setMsg("waitlist.mail", "");
+            return;
+          }
+          try {
+            const res = await fetch(WAITLIST_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            });
+            if (!res.ok) throw new Error("bad status");
+            setMsg("waitlist.ok", "ok");
+            form.reset();
+          } catch {
+            setMsg("waitlist.err", "err");
+          }
+        });
+        const btn = document.getElementById("watchBtn");
+        const figure = document.querySelector("figure.desk");
+        const label = btn?.querySelector("[data-i18n]");
+        function syncLabel() {
+          if (!label) return;
+          label.setAttribute("data-i18n", document.fullscreenElement ? "stage.exit" : "stage.full");
+          window.AQ_LANDING?.apply();
+        }
+        btn?.addEventListener("click", async () => {
+          try {
+            if (document.fullscreenElement) await document.exitFullscreen();
+            else if (figure) await figure.requestFullscreen();
+          } catch {
+            /* fullscreen unavailable */
+          }
+        });
+        document.addEventListener("fullscreenchange", syncLabel);
+      })();
+    </script>
   </body>
 </html>
